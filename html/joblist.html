@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[提瓦特招聘]-2022北京算法人才招聘</title>
+    <meta data-vue-meta="1" name="keywords" content="北京算法招聘,北京算法人才网,北京算法招聘网">
+    <link href="https://static.zhipin.com/zhipin-geek/chat/v212/static/css/vendor.0953673c.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://static.zhipin.com/zhipin-geek/chat/v212/static/css/app.0953673c.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/tiwate.css">
+    <link rel="icon" href="../images/recruit.png">
+</head>
+<body>
+    <div id = "wrap" class="page-job has-header has-footer">
+        <script src="../JavaScript/index_js.js"></script>
+        <!-- 导航条开始 -->
+        <div id="header">
+            <div class="inner home-inner">
+                <div class="mylogo">
+                    <a href="" ka="header-home-logo" title="提瓦特招聘"><span>提瓦特招聘</span></a>
+                </div>
+                <div class="nav">
+                    <ul>
+                        <li class=""><a href="#">首页</a><span>&emsp13;&emsp13;&emsp13;&emsp13;&emsp13;</span></li>
+                        <li class="cur"><a href="#">职位</a><span>&emsp13;&emsp13;&emsp13;&emsp13;&emsp13;</span></li>
+                        <li class=""><a href="#">校园</a><span>&emsp13;&emsp13;&emsp13;&emsp13;&emsp13;</span></li>
+                        <li class=""><a href="#">公司</a><span>&emsp13;&emsp13;&emsp13;&emsp13;&emsp13;</span></li>
+                        <li class=""><a href="#">咨询</a><span>&emsp13;&emsp13;&emsp13;&emsp13;&emsp13;</span></li>
+                        <li class=""><a href="#">百科</a><span>&emsp13;&emsp13;&emsp13;&emsp13;&emsp13;</span></li>
+                    </ul>
+                </div>
+                <div class="user-nav">
+                    <ul>
+                        <li class=""><a ka="header-message" href="">消息</a></li>
+                        <li class=""><a ka="header-resume" href="">简历</a></li>
+                        <li class="nav-dot">·</li>
+                        <li class="nav-up-file"><a class="header-resume-upload" ka="header-resume-upload-2" href="javascript:;">上传</a></li>
+                        <li class="nav-figure" onmouseover="showup()" onmouseout="disapear()">
+                            <a href="" ka="header-username">
+                                <span class="label-text">凌苏城</span><img src="../images/微信图片_202202151700162.jpg" alt="">
+                            </a>
+                                <div class="dropdown" id = "droplist">
+                                <a href="" class="personal-center" ka="header-personal">个人中心<span>推荐职位、编辑在线简历</span></a>
+                                <a href="" class="account-set" ka="account_manage">账号与安全中心</a>
+                                <a href="" class="privacy-set" ka="privacy_set">隐私保护</a> 
+                                <a href="register.html" class="link-recruit" ka="header-recruit">切换为招聘者</a>
+                                <a href="index2.html" class="link-logout" ka="header-logout">退出登录</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 搜索 -->
+        <!-- 搜索条结束 -->
+        <div class="page-job-wrapper" style= "padding-top:0px;" >
+            <!--  -->
+            <div class="job-search-wrapper">
+                <div class="job-search-box clearfix">
+                    <div class="job-search-form">
+                        <span ka="switch_city_dialog_open" class="city-label">北京</span>
+                        <div class="search-input-box"><div class="input-wrap input-wrap-text">
+                            <!---->
+                            <!---->
+                            <input autocomplete="on" spellcheck="false" type="text" placeholder="搜索职位、公司" class="input">
+                            <!----><!----><!----><!---->
+                        </div>
+                        <!---->
+                    </div>
+                    <a href="javascript:;" ka="job_search_btn_click" class="search-btn">搜索</a>
+                </div>
+            </div>
+            <div class="search-condition-wrapper clearfix">
+                <div class="city-area-select expand">
+                    <div class="city-area-current">
+                        <i class="ui-icon-location">
+
+                        </i>
+                        <span class="area-current-text">北京</span>
+                        <!---->
+                    </div>
+                    <div class="city-area-dropdown">
+                        <div class="area-dropdown-item">
+                            <span class="label">城市</span>
+                            <ul class="dropdown-city-list">
+                                <li ka="sel-city-100010000" class="">全国</li>
+                                <li ka="sel-city-101010100" class="active">北京</li>
+                                <li ka="sel-city-101020100" class="">上海</li>
+                                <li ka="sel-city-101280100" class="">广州</li>
+                                <li ka="sel-city-101280600" class="">深圳</li>
+                                <li ka="sel-city-101210100" class="">杭州</li>
+                                <li ka="sel-city-101030100" class="">天津</li>
+                                <li ka="sel-city-101110100" class="">西安</li>
+                                <li ka="sel-city-101190400" class="">苏州</li>
+                                <li ka="sel-city-101200100" class="">武汉</li>
+                                <li ka="sel-city-101230200" class="">厦门</li>
+                                <li ka="sel-city-101250100" class="">长沙</li>
+                                <li ka="sel-city-101270100" class="">成都</li>
+                                <li ka="sel-city-101180100" class="">郑州</li>
+                                <li ka="sel-city-101040100" class="">重庆</li>
+                                <li>其它城市</li>
+                            </ul>
+                        </div>
+                        <div class="area-dropdown-item">
+                            <span class="label">区域</span>
+                            <div class="area-select-wrapper">
+                                <div class="area-select-container">
+                                    <ul class="dropdown-area-list">
+                                        <li>不限</li>
+                                        <li ka="sel-business-0" class="">朝阳区<!----></li>
+                                        <li ka="sel-business-1" class="">海淀区<!----></li>
+                                        <li ka="sel-business-2" class="">大兴区<!----></li>
+                                        <li ka="sel-business-3" class="">丰台区<!----></li>
+                                        <li ka="sel-business-4" class="">昌平区<!----></li>
+                                        <li ka="sel-business-5" class="">东城区<!----></li>
+                                        <li ka="sel-business-6" class="">通州区<!----></li>
+                                        <li ka="sel-business-7" class="">西城区<!----></li>
+                                        <li ka="sel-business-8" class="">顺义区<!----></li>
+                                        <li ka="sel-business-9" class="">石景山区<!----></li>
+                                        <li ka="sel-business-10" class="">房山区<!----></li>
+                                        <li ka="sel-business-11" class="">门头沟区<!----></li>
+                                        <li ka="sel-business-12" class="">怀柔区<!----></li>
+                                        <li ka="sel-business-13" class="">密云区<!----></li>
+                                        <li ka="sel-business-14" class="">延庆区<!----></li>
+                                        <li ka="sel-business-15" class="">平谷区<!----></li>
+                                    </ul>
+                                </div>
+                                <div class="area-select-container clearfix">
+                                    <a href="javascript:;" class="expand-btn">展开全部</a>
+                                    <ul class="dropdown-area-list">
+                                        <li>不限</li>
+                                        <li ka="sel-area-0" class="">安定门</li>
+                                        <li ka="sel-area-1" class="">安华</li>
+                                        <li ka="sel-area-2" class="">奥林匹克公园</li>
+                                        <li ka="sel-area-3" class="">奥运村</li>
+                                        <li ka="sel-area-4" class="">安贞</li>
+                                        <li ka="sel-area-5" class="">北辰</li>
+                                        <li ka="sel-area-6" class="">北工大</li>
+                                        <li ka="sel-area-7" class="">八里桥</li>
+                                        <li ka="sel-area-8" class="">八里庄</li>
+                                        <li ka="sel-area-9" class="">北沙滩</li>
+                                        <li ka="sel-area-10" class="">百子湾</li>
+                                        <li ka="sel-area-11" class="">CBD</li>
+                                        <li ka="sel-area-12" class="">草房</li>
+                                        <li ka="sel-area-13" class="">传媒大学</li>
+                                        <li ka="sel-area-14" class="">朝青</li>
+                                        <li ka="sel-area-15" class="">成寿寺</li>
+                                        <li ka="sel-area-16" class="">朝外</li>
+                                        <li ka="sel-area-17" class="">常营</li>
+                                        <li ka="sel-area-18" class="">朝阳大悦城</li>
+                                        <li ka="sel-area-19" class="">朝阳公园</li>
+                                        <li ka="sel-area-20" class="">朝阳门</li>
+                                        <li ka="sel-area-21" class="">慈云寺</li>
+                                        <li ka="sel-area-22" class="">东坝</li>
+                                        <li ka="sel-area-23" class="">东大桥</li>
+                                        <li ka="sel-area-24" class="">定福庄</li>
+                                        <li ka="sel-area-25" class="">豆各庄</li>
+                                        <li ka="sel-area-26" class="">大郊亭</li>
+                                        <li ka="sel-area-27" class="">大山子</li>
+                                        <li ka="sel-area-28" class="">大屯</li>
+                                        <li ka="sel-area-29" class="">对外经贸</li>
+                                        <li ka="sel-area-30" class="">大望路</li>
+                                        <li ka="sel-area-31" class="">东小口</li>
+                                        <li ka="sel-area-32" class="">东直门</li>
+                                        <li ka="sel-area-33" class="">二外</li>
+                                        <li ka="sel-area-34" class="">垡头</li>
+                                        <li ka="sel-area-35" class="">高碑店</li>
+                                        <li ka="sel-area-36" class="">甘露园</li>
+                                        <li ka="sel-area-37" class="">国贸</li>
+                                        <li ka="sel-area-38" class="">广渠门</li>
+                                        <li ka="sel-area-39" class="">工体</li>
+                                        <li ka="sel-area-40" class="">国展</li>
+                                        <li ka="sel-area-41" class="">管庄</li>
+                                        <li ka="sel-area-42" class="">花家地</li>
+                                        <li ka="sel-area-43" class="">呼家楼</li>
+                                        <li ka="sel-area-44" class="">欢乐谷</li>
+                                        <li ka="sel-area-45" class="">红庙</li>
+                                        <li ka="sel-area-46" class="">和平街</li>
+                                        <li ka="sel-area-47" class="">和平里</li>
+                                        <li ka="sel-area-48" class="">华威桥</li>
+                                        <li ka="sel-area-49" class="">惠新</li>
+                                        <li ka="sel-area-50" class="">惠新西街</li>
+                                        <li ka="sel-area-51" class="">旧宫</li>
+                                        <li ka="sel-area-52" class="">建国门</li>
+                                        <li ka="sel-area-53" class="">建国门内</li>
+                                        <li ka="sel-area-54" class="">劲松</li>
+                                        <li ka="sel-area-55" class="">将台路</li>
+                                        <li ka="sel-area-56" class="">建外</li>
+                                        <li ka="sel-area-57" class="">酒仙桥</li>
+                                        <li ka="sel-area-58" class="">健翔桥</li>
+                                        <li ka="sel-area-59" class="">林萃</li>
+                                        <li ka="sel-area-60" class="">柳芳</li>
+                                        <li ka="sel-area-61" class="">来广营</li>
+                                        <li ka="sel-area-62" class="">亮马桥</li>
+                                        <li ka="sel-area-63" class="">蓝色港湾</li>
+                                        <li ka="sel-area-64" class="">立水桥</li>
+                                        <li ka="sel-area-65" class="">马甸</li>
+                                        <li ka="sel-area-66" class="">牡丹园</li>
+                                        <li ka="sel-area-67" class="">马泉营</li>
+                                        <li ka="sel-area-68" class="">麦子店</li>
+                                        <li ka="sel-area-69" class="">鸟巢</li>
+                                        <li ka="sel-area-70" class="">南磨房</li>
+                                        <li ka="sel-area-71" class="">南苑</li>
+                                        <li ka="sel-area-72" class="">农业展览馆</li>
+                                        <li ka="sel-area-73" class="">潘家园</li>
+                                        <li ka="sel-area-74" class="">青年路</li>
+                                        <li ka="sel-area-75" class="">仁和</li>
+                                        <li ka="sel-area-76" class="">十八里店</li>
+                                        <li ka="sel-area-77" class="">首都机场</li>
+                                        <li ka="sel-area-78" class="">石佛营</li>
+                                        <li ka="sel-area-79" class="">四惠</li>
+                                        <li ka="sel-area-80" class="">孙河</li>
+                                        <li ka="sel-area-81" class="">四惠东</li>
+                                        <li ka="sel-area-82" class="">双井</li>
+                                        <li ka="sel-area-83" class="">水立方</li>
+                                        <li ka="sel-area-84" class="">十里河</li>
+                                        <li ka="sel-area-85" class="">十里堡</li>
+                                        <li ka="sel-area-86" class="">三里屯</li>
+                                        <li ka="sel-area-87" class="">世贸天阶</li>
+                                        <li ka="sel-area-88" class="">双桥</li>
+                                        <li ka="sel-area-89" class="">芍药居</li>
+                                        <li ka="sel-area-90" class="">三元桥</li>
+                                        <li ka="sel-area-91" class="">团结湖</li>
+                                        <li ka="sel-area-92" class="">甜水园</li>
+                                        <li ka="sel-area-93" class="">太阳宫</li>
+                                        <li ka="sel-area-94" class="">天竺</li>
+                                        <li ka="sel-area-95" class="">望京</li>
+                                        <li ka="sel-area-96" class="">王四营</li>
+                                        <li ka="sel-area-97" class="">西坝河</li>
+                                        <li ka="sel-area-98" class="">小关</li>
+                                        <li ka="sel-area-99" class="">小红门</li>
+                                        <li ka="sel-area-100" class="">小营</li>
+                                        <li ka="sel-area-101" class="">霄云路</li>
+                                        <li ka="sel-area-102" class="">姚家园</li>
+                                        <li ka="sel-area-103" class="">燕莎</li>
+                                        <li ka="sel-area-104" class="">永泰</li>
+                                        <li ka="sel-area-105" class="">亚运村</li>
+                                        <li ka="sel-area-106" class="">左家庄</li>
+                                        <li ka="sel-area-107" class="">中央别墅区</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-job-inner">
+                <div class="page-job-content clearfix">
+                    <div class="job-list-wrapper">
+                        <div class="subscribe-weixin-wrapper">
+                            <a href="javascript:;" ka="subscription_close" class="close-btn">
+                                <i class="icon-close">
+                                </i>
+                            </a>
+                            <div class="subscribe-weixin-inner">
+                                <img src="https://img.bosszhipin.com/static/file/2022/05s3qgcgj11653987067425.png">
+                                <h3>新职位发布时通知我</h3><p>订阅<em>【北京/算法】</em>相关岗位，新岗位上线实时通知，求职快人一步</p>
+                            </div>
+                            <!-- <div class="sub-layer">
+                                 <div class="sub-container">
+                                    <p class="title">职位更新提醒</p>
+                                    <p class="info">新岗位已上线，找工作、快人一步</p>
+                                    <div class="content">
+                                        <div class="item">
+                                            <span class="t">职位名称：</span>
+                                            <span class="c">算法</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="t">所在行业：</span>
+                                            <span class="c">点击查看</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="t">发布时间：</span>
+                                            <span class="c">2022年11月25日</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="t">备注：</span>
+                                            <span class="c orange">北京</span>
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                    
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!---->
+                        <div class="search-job-result">
+                            <ul class="job-list-box">
+                                <li ka="search_list_1" class="job-card-wrapper">
+                                    <div class="job-card-body clearfix">
+                                        <a href="" ka="search_list_jname_1_blank" target="_blank" class="job-card-left">
+                                            <div class="job-title clearfix">
+                                                <span class="job-name">算法实习生</span>
+                                                <span class="job-area-wrapper">
+                                                    <span class="job-area">北京·海淀区·知春路</span>
+                                                </span>
+                                            </div>
+                                            <div class="job-info clearfix"><span class="salary">400-800元/天</span>
+                                                <ul class="tag-list">
+                                                    <!---->
+                                                    <li>4天/周</li>
+                                                    <li>3个月</li>
+                                                    <li>本科</li>
+                                                </ul>
+                                                <div class="info-public">
+                                                    李女士<em>安全主管</em>
+                                                </div>
+                                                <!-- <a href="javascript:;" ka="cpc_job_list_chat_1" class="start-chat-btn">立即沟通</a> -->
+                                                <!---->
+                                            </div>
+                                            <!---->
+                                        </a>
+                                        <div class="job-card-right">
+                                            <div class="company-logo">
+                                                <a href="" ka="search_list_company_1_custompage_logo">
+                                                    <img src="../images/字节跳动logo.jfif">
+                                                </a>
+                                            </div>
+                                            <div class="company-info">
+                                                <h3 class="company-name">
+                                                    <a href="" ka="search_list_company_1_custompage">字节跳动</a>
+                                                    <!---->
+                                                </h3>
+                                                <ul class="company-tag-list">
+                                                    <li>互联网</li>
+                                                    <li>D轮及以上</li>
+                                                    <li>10000人以上</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="job-card-footer clearfix">
+                                        <ul class="tag-list">
+                                            <li>TensorFlow/PyTorch</li>
+                                            <li>计算机相关专业</li>
+                                            <li>机器学习算法/工程化经验</li>
+                                            <li>深度学习经验</li>
+                                        </ul>
+                                        <div class="info-desc">
+                                            节日福利，加班补助，免费班车，补充医疗保险，年终奖，带薪年假，包吃，五险一金，定期体检，零食下午茶，住房补贴
+                                        </div>
+                                    </div>
+                                    <!---->
+                                </li>
+                                <li ka="search_list_2" class="job-card-wrapper">
+                                    <div class="job-card-body clearfix">
+                                        <a href="" ka="search_list_jname_2_blank" target="_blank" class="job-card-left">
+                                            <div class="job-title clearfix">
+                                                <span class="job-name">NLP算法实习生</span>
+                                                <span class="job-area-wrapper">
+                                                    <span class="job-area">北京·海淀区·清河</span>
+                                                </span>
+                                            </div>
+                                            <div class="job-info clearfix">
+                                                <span class="salary">250-400元/天</span>
+                                                <ul class="tag-list">
+                                                    <!---->
+                                                    <li>5天/周</li>
+                                                    <li>3个月</li>
+                                                    <li>本科</li>
+                                                </ul>
+                                                <div class="info-public">
+                                                    杨女士<em>HR</em>
+                                                </div>
+                                                <!-- <a href="javascript:;" ka="cpc_job_list_chat_2" class="start-chat-btn">立即沟通</a> -->
+                                                
+                                            </div>
+                                            <!---->
+                                        </a>
+                                        <div class="job-card-right">
+                                            <div class="company-logo">
+                                                <a href="/gongsi/6f1aa1d6b1d033ad33B43N0~.html" ka="search_list_company_2_custompage_logo">
+                                                    <img src="../images/小米logo.jfif"></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <h3 class="company-name">
+                                                    <a href="/gongsi/6f1aa1d6b1d033ad33B43N0~.html" ka="search_list_company_2_custompage">小米</a>
+                                                    <!---->
+                                                </h3>
+                                                <ul class="company-tag-list">
+                                                    <li>互联网</li>
+                                                    <li>已上市</li>
+                                                    <li>10000人以上</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="job-card-footer clearfix">
+                                        <ul class="tag-list">
+                                            <li>算法设计</li>
+                                            <li>Java</li>
+                                            <li>数据挖掘</li>
+                                        </ul>
+                                        <div class="info-desc">带薪年假，补充医疗保险，定期体检，年终奖，五险一金，股票期权，餐补，节日福利，12%公积金</div>
+                                    </div>
+                                    <!---->
+                                </li>
+                                <li ka="search_list_3" class="job-card-wrapper">
+                                    <div class="job-card-body clearfix">
+                                        <a href="" ka="search_list_jname_4_blank" target="_blank" class="job-card-left">
+                                            <div class="job-title clearfix">
+                                                <span class="job-name">图像算法工程师</span>
+                                                <span class="job-area-wrapper">
+                                                    <span class="job-area">北京·海淀区·马连洼</span>
+                                                </span>
+                                            </div>
+                                            <div class="job-info clearfix">
+                                                <span class="salary">200-300元/天</span>
+                                                <ul class="tag-list">
+                                                    <!---->
+                                                    <li>4天/周</li>
+                                                    <li>3个月</li>
+                                                    <li>本科</li>
+                                                </ul>
+                                                <div class="info-public">
+                                                    薛洁婷<em>计算机视觉算法工程师</em>
+                                                </div>
+                                                <!-- <a href="javascript:;" ka="cpc_job_list_chat_4" class="start-chat-btn">立即沟通</a> -->
+                                                <!---->
+                                            </div>
+                                            <!---->
+                                        </a>
+                                        <div class="job-card-right">
+                                            <div class="company-logo">
+                                                <a href="" ka="search_list_company_4_custompage_logo">
+                                                    <img src="../images/网易有道logo.jfif" ></a>
+                                                </div>
+                                                <div class="company-info">
+                                                    <h3 class="company-name">
+                                                        <a href="/gongsi/b43196f6af44a9b833d63Ns~.html" ka="search_list_company_4_custompage">网易有道</a>
+                                                        <!---->
+                                                    </h3>
+                                                    <ul class="company-tag-list">
+                                                        <li>互联网</li>
+                                                        <li>已上市</li>
+                                                        <li>10000人以上</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="job-card-footer clearfix">
+                                            <ul class="tag-list">
+                                                <li>研究导向</li>
+                                                <li>语音/图像识别</li>
+                                                <li>Python</li>
+                                                <li>OpenCV</li>
+                                                <li>TensorFlow/PyTorch</li>
+                                                <li>计算机相关专业</li>
+                                                <li>机器学习算法/工程化经验</li>
+                                                <li>深度学习经验</li>
+                                            </ul>
+                                            <div class="info-desc">交通补助，零食下午茶，餐补，免费班车，年终奖，住房补贴，五险一金，免费健身房，带薪年假，通讯补贴，补充医疗保险，包吃，节日福利，定期体检，员工旅游</div>
+                                        </div>
+                                        <!---->
+                                    </li>
+                                <li ka="search_list_4" class="job-card-wrapper">
+                                    <div class="job-card-body clearfix">
+                                        <a href="" ka="search_list_jname_4_blank" target="_blank"     class="job-card-left">
+                                            <div class="job-title clearfix">
+                                                <span class="job-name">NLP算法实习生</span>
+                                                <span class="job-area-wrapper">
+                                                    <span class="job-area">北京·海淀区·马连洼</span>
+                                                </span>
+                                            </div>
+                                            <div class="job-info clearfix">
+                                                <span class="salary">250-400元/天</span>
+                                                <ul class="tag-list">
+                                                    <!---->
+                                                    <li>4天/周</li>
+                                                    <li>4个月</li>
+                                                    <li>本科</li>
+                                                </ul>
+                                                <div class="info-public">
+                                                    胡先生<em>算法工程师</em>
+                                                </div>
+                                                <!-- <a href="javascript:;" ka="cpc_job_list_chat_4" class="start-chat-btn">立即沟通</a> -->
+                                                <!---->
+                                            </div>
+                                            <!---->
+                                        </a>
+                                        <div class="job-card-right">
+                                            <div class="company-logo">
+                                                <a href="/gongsi/faa5d2f299da16161Xd40t29FlA~.html"     ka="search_list_company_4_custompage_logo">
+                                                    <img src="../images/百度logo.jfif"></a>
+                                            </div>
+                                            <div class="company-info">
+                                                <h3 class="company-name">
+                                                    <a href="/gongsi/faa5d2f299da16161Xd40t29FlA~.html" ka="search_list_company_4_custompage">百度</a>
+                                                    <!---->
+                                                </h3>
+                                                <ul class="company-tag-list">
+                                                    <li>互联网</li>
+                                                    <li>已上市</li>
+                                                    <li>10000人以上</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="job-card-footer clearfix">
+                                        <ul class="tag-list">
+                                            <li>Python</li>
+                                            <li>TensorFlow</li>
+                                            <li>PyTorch</li>
+                                            <li>计算机相关专业</li>
+                                            <li>数学/统计相关专业</li>
+                                            <li>自然语言处理项目经验</li>
+                                        </ul>
+                                        <div class="info-desc">带薪年假，节日福利，补充医疗保险，零食下午茶，餐补，娱乐健身，交通补助，定期体检，住房补贴，加   班补   助，年终奖，通讯补贴，免费班车，五险一金，员工旅游</div>
+                                    </div>
+                                    <!---->
+                                </li>
+                                <li ka="search_list_5" class="job-card-wrapper">
+                                    <div class="job-card-body clearfix">
+                                        <a href="" ka="search_list_jname_5_blank" target="_blank"     class="job-card-left">
+                                            <div class="job-title clearfix">
+                                                <span class="job-name">NLP算法实习生</span>
+                                                <span class="job-area-wrapper"><span class="job-area">北京·海淀区·马连洼</span>
+                                            </span>
+                                            </div>
+                                            <div class="job-info clearfix">
+                                                <span class="salary">250-400元/天</span>
+                                                <ul class="tag-list">
+                                                    <!---->
+                                                    <li>4天/周</li>
+                                                    <li>4个月</li>
+                                                    <li>本科</li>
+                                                </ul>
+                                                <div class="info-public">
+                                                    王竞文<em>算法工程师</em>
+                                                </div>
+                                                <!-- <a href="javascript:;" ka="cpc_job_list_chat_5" class="start-chat-btn">立即沟通</a> -->
+                                            <!---->
+                                            </div>
+                                        <!---->
+                                        </a>
+                                        <div class="job-card-right">
+                                            <div class="company-logo">
+                                                <a href="/gongsi/1fcce9a1d32b4fa61Xd40t28EVM~.html"     ka="search_list_company_5_custompage_logo">
+                                                    <img src="../images/百度logo.jfif" >
+                                                </a>
+                                            </div>
+                                            <div class="company-info">
+                                                <h3 class="company-name">
+                                                    <a href="/gongsi/1fcce9a1d32b4fa61Xd40t28EVM~.html" ka="search_list_company_5_custompage">
+                                                        百度  
+                                                    </a>
+                                                    <!---->
+                                                </h3>
+                                                <ul class="company-tag-list">
+                                                    <li>互联网</li>
+                                                    <li>已上市</li>
+                                                    <li>10000人以上</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="job-card-footer clearfix">
+                                            <ul class="tag-list">
+                                                <li>Python</li>
+                                                <li>自然语言处理项目经验</li>
+                                            </ul>
+                                            <div class="info-desc">年终奖，零食下午茶，带薪年假，五险一金，员工旅游，节日福利，住房补贴，定期体检，补充医疗 保险，   娱乐健身，餐补，免费班车，通讯补贴，交通补助，加班补助
+                                            </div>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- <div class="pagination-area">
+                                <div class="pager text-center">
+                                    
+                                    <div class="options-pages">
+                                        <a href="javascript:;" class="disabled">
+                                            <i class="ui-icon-arrow-left"></i>
+                                        </a>
+                                        <a href="javascript:;" class="selected">1</a>
+                                        <a href="javascript:;" class="">2</a>
+                                        <a href="javascript:;" class="">3</a>
+                                        <a href="javascript:;" class="">4</a>
+                                        <a href="javascript:;" class="">5</a>
+                                        <a href="javascript:;" class="">6</a>
+                                        <a class="fast-next-btn disabled"> ... </a>
+                                        <a href="javascript:;" class="">10</a>
+                                        <a href="javascript:;" class=""><i class="ui-icon-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>    
+    </div>
+</body>
+</html>
