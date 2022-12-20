@@ -15,7 +15,7 @@ def get_user(request):
     try:
         user = User.objects.get(email=email)
     except:
-        raise Exception({'status_code': 2, 'message': '用户名不存在!'})
+        raise Exception({'status_code': 2, 'message': '邮箱不存在!'})
     return user
     # raise Exception({'status_code': 1, 'message': '没有权限!'})
 
