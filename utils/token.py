@@ -22,12 +22,12 @@ def decrypt(src):
     return raw
 
 
-def create_token(username):
+def create_token(email):
     """生成token信息"""
     # 1. 加密头信息
     header = encrypt(HEADER)
     # 2. 构造Payload(有效期14天)
-    payload = {"username": username, "iat": time.time(),
+    payload = {"email": email, "iat": time.time(),
                "exp": time.time() + TIME_OUT}
     payload = encrypt(payload)
     # 3. MD5 生成签名
@@ -45,10 +45,10 @@ def get_payload(token):
     return payload
 
 
-def get_username(token):
-    """解析 token 获取 username"""
+def get_email(token):
+    """解析 token 获取 email"""
     payload = get_payload(token)
-    return payload['username']
+    return payload['email']
 
 
 def get_exp_time(token):
@@ -57,6 +57,6 @@ def get_exp_time(token):
     return payload['exp']
 
 
-def check_token(username, token):
-    """验证 token：检查 username 和 token 是否一致且未过期"""
-    return get_username(token) == username and get_exp_time(token) > time.time()
+def check_token(email, token):
+    """验证 token：检查 email 和 token 是否一致且未过期"""
+    return get_email(token) == email and get_exp_time(token) > time.time()

@@ -6,7 +6,7 @@ from django.db import models
 
 
 class Company(models.Model):
-    username = models.CharField(max_length=128, unique=True, primary_key=True)
+    email = models.EmailField(unique=True, primary_key=True, default='1@2.3')
     company_name = models.CharField(max_length=128, unique=True)
     company_position = models.CharField(max_length=10, default="")
     company_description = models.CharField(max_length=128, default="")
@@ -15,7 +15,7 @@ class Company(models.Model):
     company_tag3 = models.CharField(max_length=10, default="")
 
     def __str__(self):
-        return self.username + " Company"
+        return self.email + " Company"
 
 
 class Job(models.Model):
@@ -33,4 +33,4 @@ class Job(models.Model):
     contact_info = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.company.username + " Job " + str(self.job_id)
+        return self.company.email + " Job " + str(self.job_id)

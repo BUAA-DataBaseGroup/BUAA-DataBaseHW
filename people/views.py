@@ -10,9 +10,9 @@ from people.models import *
 # Create your views here.
 
 def get_user(request):
-    username = json.loads(request.body)['username']
+    email = json.loads(request.body)['email']
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(email=email)
     except:
         raise Exception({'status_code': 2, 'message': '用户名不存在!'})
     return user
@@ -20,9 +20,9 @@ def get_user(request):
 
 
 def get_resume(request):
-    username = json.loads(request.body)['username']
+    email = json.loads(request.body)['email']
     try:
-        resume = Resume.objects.get(username=username)
+        resume = Resume.objects.get(email=email)
     except:
         raise Exception({'status_code': 2, 'message': '简历不存在!'})
     return resume
@@ -180,12 +180,7 @@ def my_email(request):
     except Exception as e:
         return e
     if request.method == 'POST':
-        new_val = json.loads(request.body)['my_email']
-        if Resume.objects.filter(my_email=new_val):
-            return JsonResponse({'status_code': 2, 'message': '该邮箱已被注册!'})
-        resume.my_email = new_val
-        resume.save()
-        return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+        return JsonResponse({'status_code': 1, 'message': '邮箱不允许修改!'})
     elif request.method == 'GET':
         return JsonResponse({'status_code': 0, 'my_email': resume.email})
     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})

@@ -11,9 +11,9 @@ from companies.models import *
 # Create your views here.
 
 def get_user(request):
-    username = json.loads(request.body)['username']
+    email = json.loads(request.body)['email']
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(email=email)
     except:
         raise Exception({'status_code': 2, 'message': '用户名不存在!'})
     return user
@@ -21,9 +21,9 @@ def get_user(request):
 
 
 def get_company(request):
-    username = json.loads(request.body)['username']
+    email = json.loads(request.body)['email']
     try:
-        company = Company.objects.get(username=username)
+        company = Company.objects.get(email=email)
     except:
         raise Exception({'status_code': 2, 'message': '公司不存在!'})
     return company

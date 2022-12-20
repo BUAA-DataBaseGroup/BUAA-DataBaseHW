@@ -6,7 +6,7 @@ from django.db import models
 
 
 class Resume(models.Model):
-    username = models.CharField(max_length=128, unique=True, primary_key=True)
+    email = models.EmailField(unique=True, primary_key=True, default='1@2.3')
     my_name = models.CharField(max_length=128)
     my_status = models.IntegerField(default=-1, validators=[MaxValueValidator(3), MinValueValidator(-1)])
     my_sex_is_male = models.BooleanField(default=True)
@@ -14,7 +14,6 @@ class Resume(models.Model):
     my_tel = models.CharField(max_length=11, default="")
     my_date_of_first_work = models.CharField(max_length=7, default="")
     my_wechat = models.CharField(max_length=128, default="")
-    my_email = models.EmailField(unique=True)
 
     my_advantage = models.TextField(max_length=200, default="")
 
@@ -25,7 +24,7 @@ class Resume(models.Model):
     my_expect_salary = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
     def __str__(self):
-        return self.username + " Resume"
+        return self.email + " Resume"
 
 
 class Work(models.Model):
@@ -41,13 +40,12 @@ class Work(models.Model):
     company_achievement = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.resume.username + " Work " + str(self.work_id)
+        return self.resume.email + " Work " + str(self.work_id)
 
 
 class Item(models.Model):
     item_id = models.AutoField(unique=True, primary_key=True)
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
-    username = models.CharField(max_length=256)
     item_name = models.CharField(max_length=20)
     item_role = models.CharField(max_length=10)
     item_link = models.CharField(max_length=6)
@@ -57,7 +55,7 @@ class Item(models.Model):
     item_achievement = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.resume.username + " Item " + str(self.item_id)
+        return self.resume.email + " Item " + str(self.item_id)
 
 
 class Education(models.Model):
@@ -71,4 +69,4 @@ class Education(models.Model):
     education_experience = models.CharField(max_length=1500)
 
     def __str__(self):
-        return self.resume.username + " Work " + self.education_name
+        return self.resume.email + " Work " + self.education_name
