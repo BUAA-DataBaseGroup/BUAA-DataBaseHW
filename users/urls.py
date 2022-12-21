@@ -7,4 +7,5 @@ urlpatterns = [
     path('upd_username', upd_username),
     path('get_username', get_username),
     path('upd_password', upd_password),
+    path('get_is_company', get_is_company),
 ]

@@ -48,10 +48,13 @@ def register(request):
         if is_company:
             new_company = Company()
             new_company.email = email
+            new_company.corporation_name = json.loads(request.body)['corporation_name']
+            new_company.corporation_abbreviation = json.loads(request.body)['corporation_abbreviation']
             new_company.save()
         else:
             new_resume = Resume()
             new_resume.email = email
+            new_resume.my_name = json.loads(request.body)['my_name']
             new_resume.save()
 
         return JsonResponse({'status_code': 0, 'message': '注册成功!'})
@@ -63,14 +66,18 @@ def login(request):
     if request.method == 'POST':
         email = json.loads(request.body)['email']
         password = json.loads(request.body)['password']
+        is_company = json.loads(request.body)['is_company']
         try:
             user = User.objects.get(email=email)
         except:
             return JsonResponse({'status_code': 1, 'message': '未查询到此用户!'})
 
-        if user.password == hash_code(password):
+        if user.is_company != is_company:
+            return JsonResponse({'status_code': 3, 'message': '用户类型错误!'})
+        elif user.password == hash_code(password):
             token = create_token(email)
-            return JsonResponse({'status_code': 0, 'email': email, 'token': token, 'message': '登录成功!'})
+            return JsonResponse({'status_code': 0, 'email': email, 'token': token,
+                                 'message': '登录成功!'})
         else:
             return JsonResponse({'status_code': 2, 'message': '密码错误!'})
     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
@@ -115,3 +122,12 @@ def upd_password(request):
     user.password = hash_code(new1)
     user.save()
     return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_is_company(request):
+    try:
+        user = get_user(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0, 'is_company': user.is_company})
