@@ -14,7 +14,7 @@ def get_user(request):
     try:
         user = User.objects.get(email=email)
     except:
-        raise Exception({'status_code': 2, 'message': '邮箱不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '邮箱不存在!'}))
     return user
     # raise Exception({'status_code': 1, 'message': '没有权限!'})
 
@@ -24,7 +24,7 @@ def get_resume(request):
     try:
         resume = Resume.objects.get(email=email)
     except:
-        raise Exception({'status_code': 2, 'message': '简历不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '简历不存在!'}))
     return resume
 
 
@@ -34,7 +34,7 @@ def get_work(request):
     try:
         work = resume.work_set.get(work_id=work_id)
     except:
-        raise Exception({'status_code': 2, 'message': '工作不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '工作不存在!'}))
     return work
 
 
@@ -44,7 +44,7 @@ def get_item(request):
     try:
         item = resume.work_set.get(item_id=item_id)
     except:
-        raise Exception({'status_code': 2, 'message': '项目不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '项目不存在!'}))
     return item
 
 
@@ -54,7 +54,7 @@ def get_education(request):
     try:
         education = resume.work_set.get(education_id=education_id)
     except:
-        raise Exception({'status_code': 2, 'message': '教育经历不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '教育经历不存在!'}))
     return education
 
 

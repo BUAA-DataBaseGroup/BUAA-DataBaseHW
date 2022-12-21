@@ -1,5 +1,4 @@
 import json
-import re
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -15,7 +14,7 @@ def get_user(request):
     try:
         user = User.objects.get(email=email)
     except:
-        raise Exception({'status_code': 2, 'message': '邮箱不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '邮箱不存在!'}))
     return user
     # raise Exception({'status_code': 1, 'message': '没有权限!'})
 
@@ -25,232 +24,457 @@ def get_company(request):
     try:
         company = Company.objects.get(email=email)
     except:
-        raise Exception({'status_code': 2, 'message': '公司不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '公司不存在!'}))
     return company
 
 
-def get_job(request):
+def get_job_id(request):
     company = get_company(request)
     job_id = json.loads(request.body)['id']
     try:
         job = company.job_set.get(job_id=job_id)
     except:
-        raise Exception({'status_code': 2, 'message': '工作不存在!'})
+        raise Exception(JsonResponse({'status_code': 2, 'message': '工作不存在!'}))
     return job
 
 
+def get_development_id(request):
+    company = get_company(request)
+    development_id = json.loads(request.body)['id']
+    try:
+        development = company.development_set.get(development_id=development_id)
+    except:
+        raise Exception(JsonResponse({'status_code': 2, 'message': 'development不存在!'}))
+    return development
+
+
+def get_welfare_id(request):
+    company = get_company(request)
+    welfare_id = json.loads(request.body)['id']
+    try:
+        welfare = company.welfare_set.get(welfare_id=welfare_id)
+    except:
+        raise Exception(JsonResponse({'status_code': 2, 'message': 'welfare不存在!'}))
+    return welfare
+
+
+def get_recruiter_id(request):
+    company = get_company(request)
+    recruiter_id = json.loads(request.body)['id']
+    try:
+        recruiter = company.recruiter_set.get(recruiter_id=recruiter_id)
+    except:
+        raise Exception(JsonResponse({'status_code': 2, 'message': 'recruiter不存在!'}))
+    return recruiter
+
+
 @csrf_exempt
-def company_info(request):
+def upd_corporation_name(request):
     try:
         company = get_company(request)
     except Exception as e:
         return e
-    if request.method == 'POST':
-        new_company_name = json.loads(request.body)['company_name']
-        new_company_position = json.loads(request.body)['company_position']
-        new_company_description = json.loads(request.body)['company_description']
-        new_company_tag1 = json.loads(request.body)['company_tag1']
-        new_company_tag2 = json.loads(request.body)['company_tag2']
-        new_company_tag3 = json.loads(request.body)['company_tag3']
+    company.corporation_name = json.loads(request.body)['corporation_name']
+    company.corporation_abbreviation = json.loads(request.body)['corporation_abbreviation']
+    company.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
 
-        company.company_name = new_company_name
-        company.company_position = new_company_position
-        company.company_description = new_company_description
-        company.company_tag1 = new_company_tag1
-        company.company_tag2 = new_company_tag2
-        company.company_tag3 = new_company_tag3
-        company.save()
-        return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-    elif request.method == 'GET':
-        return JsonResponse({'status_code': 0,
-                             'company_name': company.company_name,
-                             'company_position': company.company_position,
-                             'company_description': company.company_description,
-                             'company_tag1': company.company_tag1,
-                             'company_tag2': company.company_tag2,
-                             'company_tag3': company.company_tag3,
-                             })
-    return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
-
-
-# @csrf_exempt
-# def company_name(request):
-#     try:
-#         company = get_company(request)
-#     except Exception as e:
-#         return e
-#     if request.method == 'POST':
-#         new_val = json.loads(request.body)['company_name']
-#         company.company_name = new_val
-#         company.save()
-#         return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-#     elif request.method == 'GET':
-#         return JsonResponse({'status_code': 0, 'company_name': company.company_name})
-#     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
-#
-#
-# @csrf_exempt
-# def company_position(request):
-#     try:
-#         company = get_company(request)
-#     except Exception as e:
-#         return e
-#     if request.method == 'POST':
-#         new_val = json.loads(request.body)['company_position']
-#         company.company_position = new_val
-#         company.save()
-#         return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-#     elif request.method == 'GET':
-#         return JsonResponse({'status_code': 0, 'company_position': company.company_position})
-#     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
-#
-#
-# @csrf_exempt
-# def company_description(request):
-#     try:
-#         company = get_company(request)
-#     except Exception as e:
-#         return e
-#     if request.method == 'POST':
-#         new_val = json.loads(request.body)['company_description']
-#         company.company_description = new_val
-#         company.save()
-#         return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-#     elif request.method == 'GET':
-#         return JsonResponse({'status_code': 0, 'company_description': company.company_description})
-#     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
-#
-#
-# @csrf_exempt
-# def company_tag1(request):
-#     try:
-#         company = get_company(request)
-#     except Exception as e:
-#         return e
-#     if request.method == 'POST':
-#         new_val = json.loads(request.body)['company_tag1']
-#         company.company_tag1 = new_val
-#         company.save()
-#         return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-#     elif request.method == 'GET':
-#         return JsonResponse({'status_code': 0, 'company_tag1': company.company_tag1})
-#     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
-#
-#
-# @csrf_exempt
-# def company_tag2(request):
-#     try:
-#         company = get_company(request)
-#     except Exception as e:
-#         return e
-#     if request.method == 'POST':
-#         new_val = json.loads(request.body)['company_tag2']
-#         company.company_tag2 = new_val
-#         company.save()
-#         return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-#     elif request.method == 'GET':
-#         return JsonResponse({'status_code': 0, 'company_tag2': company.company_tag2})
-#     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
-#
-#
-# @csrf_exempt
-# def company_tag3(request):
-#     try:
-#         company = get_company(request)
-#     except Exception as e:
-#         return e
-#     if request.method == 'POST':
-#         new_val = json.loads(request.body)['company_tag3']
-#         company.company_tag3 = new_val
-#         company.save()
-#         return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-#     elif request.method == 'GET':
-#         return JsonResponse({'status_code': 0, 'company_tag3': company.company_tag3})
-#     return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
 
 @csrf_exempt
-def job_list(request):
+def get_corporation_name(request):
     try:
         company = get_company(request)
     except Exception as e:
         return e
-    if request.method == 'POST':
-        new_job_name = json.loads(request.body)['job_name']
-        new_job_salary_min = json.loads(request.body)['job_salary_min']
-        new_job_salary_max = json.loads(request.body)['job_salary_max']
-        new_job_description = json.loads(request.body)['job_description']
-        new_job_day = json.loads(request.body)['job_day']
-        new_job_month = json.loads(request.body)['job_month']
-        new_job_education = json.loads(request.body)['job_education']
-
-        job = Job()
-        job.company = company
-        job.job_name = new_job_name
-        job.job_salary_min = new_job_salary_min
-        job.job_salary_max = new_job_salary_max
-        job.job_description = new_job_description
-        job.job_day = new_job_day
-        job.job_month = new_job_month
-        job.job_education = new_job_education
-        job.save()
-        return JsonResponse({'status_code': 0, 'message': '添加成功!'})
-    elif request.method == 'GET':
-        job_set = company.job_set
-        res = []
-        for job in job_set:
-            res.append(job.id)
-        return JsonResponse({'status_code': 0, 'job_list': res})
-    elif request.method == 'DELETE':
-        try:
-            job = get_job(request)
-        except Exception as e:
-            return e
-        job.delete()
-        return JsonResponse({'status_code': 0, 'message': '删除成功!'})
-    return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
+    return JsonResponse({'status_code': 0,
+                         'corporation_name': company.corporation_name,
+                         'corporation_abbreviation': company.corporation_abbreviation,
+                         })
 
 
 @csrf_exempt
-def job_info(request):
+def upd_corporation_state_of_finance(request):
     try:
-        job = get_job(request)
+        company = get_company(request)
     except Exception as e:
         return e
-    if request.method == 'POST':
-        new_job_name = json.loads(request.body)['job_name']
-        new_job_salary_min = json.loads(request.body)['job_salary_min']
-        new_job_salary_max = json.loads(request.body)['job_salary_max']
-        new_job_description = json.loads(request.body)['job_description']
-        new_job_day = json.loads(request.body)['job_day']
-        new_job_month = json.loads(request.body)['job_month']
-        new_job_education = json.loads(request.body)['job_education']
-        new_contact_name = json.loads(request.body)['contact_name']
-        new_contact_tel = json.loads(request.body)['contact_tel']
-        new_contact_info = json.loads(request.body)['contact_info']
+    company.corporation_state_of_finance = json.loads(request.body)['corporation_state_of_finance']
+    company.corporation_size_of_staff = json.loads(request.body)['corporation_size_of_staff']
+    company.corporation_field = json.loads(request.body)['corporation_field']
+    company.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
 
-        if not re.match('^[0-9]{11}$', new_contact_tel):
-            return JsonResponse({'status_code': 1, 'message': '手机号不符合规范!'})
 
-        job.job_name = new_job_name
-        job.job_salary_min = new_job_salary_min
-        job.job_salary_max = new_job_salary_max
-        job.job_description = new_job_description
-        job.job_day = new_job_day
-        job.job_month = new_job_month
-        job.job_education = new_job_education
-        job.contact_name = new_contact_name
-        job.contact_tel = new_contact_tel
-        job.contact_info = new_contact_info
-        job.save()
-        return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-    elif request.method == 'GET':
-        return JsonResponse({'status_code': 0,
-                             'job_name': job.company_name,
-                             'job_salary_min': job.company_position,
-                             'job_salary_max': job.job_salary_max,
-                             'job_description': job.job_description,
-                             'job_day': job.job_day,
-                             'job_month': job.job_month,
-                             'job_education': job.job_education,
-                             })
-    return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
+@csrf_exempt
+def get_corporation_state_of_finance(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'corporation_state_of_finance': company.corporation_state_of_finance,
+                         'corporation_size_of_staff': company.corporation_size_of_staff,
+                         'corporation_field': company.corporation_field,
+                         })
+
+
+@csrf_exempt
+def upd_corporation_introduction(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    company.corporation_introduction = json.loads(request.body)['corporation_introduction']
+    company.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_corporation_introduction(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'corporation_introduction': company.corporation_introduction,
+                         })
+
+
+@csrf_exempt
+def add_corporation_talent_development_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    development = Development()
+    development.company = company
+    development.content = json.loads(request.body)['content']
+    development.save()
+    return JsonResponse({'status_code': 0, 'message': '添加成功!'})
+
+
+@csrf_exempt
+def get_corporation_talent_development_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    development_set = company.development_set
+    res = []
+    for development in development_set:
+        res.append(development.id)
+    return JsonResponse({'status_code': 0, 'corporation_talent_development_list': res})
+
+
+@csrf_exempt
+def del_corporation_talent_development_list(request):
+    try:
+        development = get_development_id(request)
+    except Exception as e:
+        return e
+    development.delete()
+    return JsonResponse({'status_code': 0, 'message': '删除成功!'})
+
+
+@csrf_exempt
+def upd_corporation_talent_development(request):
+    try:
+        development = get_development_id(request)
+    except Exception as e:
+        return e
+    development.content = json.loads(request.body)['content']
+    development.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_corporation_talent_development(request):
+    try:
+        development = get_development_id(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'content': development.content,
+                         })
+
+
+@csrf_exempt
+def upd_corporation_LRP(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    company.corporation_LRP = json.loads(request.body)['corporation_LRP']
+    company.corporation_setup_time = json.loads(request.body)['corporation_setup_time']
+    company.corporation_type = json.loads(request.body)['corporation_type']
+    company.corporation_status = json.loads(request.body)['corporation_status']
+    company.corporation_capital = json.loads(request.body)['corporation_capital']
+    company.corporation_setup_place = json.loads(request.body)['corporation_setup_place']
+    company.corporation_SCC = json.loads(request.body)['corporation_SCC']
+    company.corporation_management_content = json.loads(request.body)['corporation_management_content']
+    company.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_corporation_LRP(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'corporation_LRP': company.corporation_LRP,
+                         'corporation_setup_time': company.corporation_setup_time,
+                         'corporation_type': company.corporation_type,
+                         'corporation_status': company.corporation_status,
+                         'corporation_capital': company.corporation_capital,
+                         'corporation_setup_place': company.corporation_setup_place,
+                         'corporation_SCC': company.corporation_SCC,
+                         'corporation_management_content': company.corporation_management_content,
+                         })
+
+
+@csrf_exempt
+def upd_corporation_am_time(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    company.corporation_am_time = json.loads(request.body)['corporation_am_time']
+    company.corporation_pm_time = json.loads(request.body)['corporation_pm_time']
+    company.corporation_off = json.loads(request.body)['corporation_off']
+    company.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_corporation_am_time(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'corporation_am_time': company.corporation_am_time,
+                         'corporation_pm_time': company.corporation_pm_time,
+                         'corporation_off': company.corporation_off,
+                         })
+
+
+@csrf_exempt
+def add_welfare_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    welfare = Welfare()
+    welfare.company = company
+    welfare.content = json.loads(request.body)['content']
+    welfare.save()
+    return JsonResponse({'status_code': 0, 'message': '添加成功!'})
+
+
+@csrf_exempt
+def get_welfare_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    welfare_set = company.welfare_set
+    res = []
+    for welfare in welfare_set:
+        res.append(welfare.id)
+    return JsonResponse({'status_code': 0, 'corporation_welfare_list': res})
+
+
+@csrf_exempt
+def del_welfare_list(request):
+    try:
+        welfare = get_welfare_id(request)
+    except Exception as e:
+        return e
+    welfare.delete()
+    return JsonResponse({'status_code': 0, 'message': '删除成功!'})
+
+
+@csrf_exempt
+@csrf_exempt
+def upd_welfare(request):
+    try:
+        welfare = get_welfare_id(request)
+    except Exception as e:
+        return e
+    welfare.content = json.loads(request.body)['content']
+    welfare.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_welfare(request):
+    try:
+        welfare = get_welfare_id(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'content': welfare.content,
+                         })
+
+
+@csrf_exempt
+def add_recruiter_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    recruiter = Recruiter()
+    recruiter.company = company
+    recruiter.recruiter_name = json.loads(request.body)['recruiter_name']
+    recruiter.recruiter_post = json.loads(request.body)['recruiter_post']
+    recruiter.save()
+    return JsonResponse({'status_code': 0, 'message': '添加成功!'})
+
+
+@csrf_exempt
+def get_recruiter_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    recruiter_set = company.recruiter_set
+    res = []
+    for recruiter in recruiter_set:
+        res.append(recruiter.id)
+    return JsonResponse({'status_code': 0, 'corporation_recruiter_list': res})
+
+
+@csrf_exempt
+def del_recruiter_list(request):
+    try:
+        recruiter = get_recruiter_id(request)
+    except Exception as e:
+        return e
+    recruiter.delete()
+    return JsonResponse({'status_code': 0, 'message': '删除成功!'})
+
+
+@csrf_exempt
+def upd_recruiter(request):
+    try:
+        recruiter = get_recruiter_id(request)
+    except Exception as e:
+        return e
+    recruiter.recruiter_name = json.loads(request.body)['recruiter_name']
+    recruiter.recruiter_post = json.loads(request.body)['recruiter_post']
+    recruiter.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_recruiter(request):
+    try:
+        recruiter = get_recruiter_id(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'recruiter_name': recruiter.recruiter_name,
+                         'recruiter_post': recruiter.recruiter_post,
+                         })
+
+
+@csrf_exempt
+def get_recruiter_job_list(request):
+    try:
+        recruiter = get_recruiter_id(request)
+    except Exception as e:
+        return e
+    job_set = recruiter.job_set
+    res = []
+    for job in job_set:
+        res.append(job.id)
+    return JsonResponse({'status_code': 0, 'recruiter_job_list': res})
+
+
+@csrf_exempt
+def get_corporation_job_list(request):
+    try:
+        company = get_company(request)
+    except Exception as e:
+        return e
+    job_set = company.job_set
+    res = []
+    for job in job_set:
+        res.append(job.id)
+    return JsonResponse({'status_code': 0, 'corporation_job_list': res})
+
+
+@csrf_exempt
+def add_job(request):
+    try:
+        company = get_company(request)
+        recruiter = get_recruiter(request)
+    except Exception as e:
+        return e
+    job = Job()
+    job.company = company
+    job.recruiter = recruiter
+    job.position_name = json.loads(request.body)['position_name']
+    job.position_address = json.loads(request.body)['position_address']
+    job.position_experience = json.loads(request.body)['position_experience']
+    job.position_education = json.loads(request.body)['position_education']
+    job.position_salary_from = json.loads(request.body)['position_salary_from']
+    job.position_salary_to = json.loads(request.body)['position_salary_to']
+    job.position_description = json.loads(request.body)['position_description']
+
+    job_set = company.job_set
+    res = []
+    for job in job_set:
+        res.append(job.id)
+    return JsonResponse({'status_code': 0, 'message': '添加成功!'})
+
+
+@csrf_exempt
+def del_job(request):
+    try:
+        job = get_job_id(request)
+    except Exception as e:
+        return e
+    job.delete()
+    return JsonResponse({'status_code': 0, 'message': '删除成功!'})
+
+
+@csrf_exempt
+def upd_job(request):
+    try:
+        job = get_job_id(request)
+    except Exception as e:
+        return e
+    recruiter_id = json.loads(request.body)['recruiter_id']
+    job.recruiter = Recruiter.objects.get(recruiter_id=recruiter_id)
+    job.position_name = json.loads(request.body)['position_name']
+    job.position_address = json.loads(request.body)['position_address']
+    job.position_experience = json.loads(request.body)['position_experience']
+    job.position_education = json.loads(request.body)['position_education']
+    job.position_salary_from = json.loads(request.body)['position_salary_from']
+    job.position_salary_to = json.loads(request.body)['position_salary_to']
+    job.position_boss_id = json.loads(request.body)['position_boss_id']
+    job.position_description = json.loads(request.body)['position_description']
+    job.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
+
+
+@csrf_exempt
+def get_job(request):
+    try:
+        job = get_job_id(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0,
+                         'recruiter_id': job.recruiter_id,
+                         'position_name': job.position_name,
+                         'position_address': job.position_address,
+                         'position_experience': job.position_experience,
+                         'position_education': job.position_education,
+                         'position_salary_from': job.position_salary_from,
+                         'position_salary_to': job.position_salary_to,
+                         'position_boss_id': job.position_boss_id,
+                         'position_description': job.position_description,
+                         })
