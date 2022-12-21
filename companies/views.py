@@ -56,10 +56,9 @@ def get_welfare_id(request):
 
 
 def get_recruiter_id(request):
-    company = get_company(request)
     recruiter_id = json.loads(request.body)['id']
     try:
-        recruiter = company.recruiter_set.get(recruiter_id=recruiter_id)
+        recruiter = Recruiter.objects.get(recruiter_id=recruiter_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': 'recruiter不存在!'}))
     return recruiter
@@ -156,7 +155,7 @@ def get_corporation_talent_development_list(request):
         company = get_company(request)
     except Exception as e:
         return e
-    development_set = company.development_set
+    development_set = company.development_set.all()
     res = []
     for development in development_set:
         res.append(development.id)
@@ -276,7 +275,7 @@ def get_welfare_list(request):
         company = get_company(request)
     except Exception as e:
         return e
-    welfare_set = company.welfare_set
+    welfare_set = company.welfare_set.all()
     res = []
     for welfare in welfare_set:
         res.append(welfare.id)
@@ -336,7 +335,7 @@ def get_recruiter_list(request):
         company = get_company(request)
     except Exception as e:
         return e
-    recruiter_set = company.recruiter_set
+    recruiter_set = company.recruiter_set.all()
     res = []
     for recruiter in recruiter_set:
         res.append(recruiter.id)
@@ -383,7 +382,7 @@ def get_recruiter_job_list(request):
         recruiter = get_recruiter_id(request)
     except Exception as e:
         return e
-    job_set = recruiter.job_set
+    job_set = recruiter.job_set.all()
     res = []
     for job in job_set:
         res.append(job.id)
@@ -396,7 +395,7 @@ def get_corporation_job_list(request):
         company = get_company(request)
     except Exception as e:
         return e
-    job_set = company.job_set
+    job_set = company.job_set.all()
     res = []
     for job in job_set:
         res.append(job.id)
@@ -420,11 +419,7 @@ def add_job(request):
     job.position_salary_from = json.loads(request.body)['position_salary_from']
     job.position_salary_to = json.loads(request.body)['position_salary_to']
     job.position_description = json.loads(request.body)['position_description']
-
-    job_set = company.job_set
-    res = []
-    for job in job_set:
-        res.append(job.id)
+    job.save()
     return JsonResponse({'status_code': 0, 'message': '添加成功!'})
 
 

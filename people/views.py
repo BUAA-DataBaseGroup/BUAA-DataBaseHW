@@ -47,10 +47,9 @@ def get_item(request):
 
 
 def get_education(request):
-    resume = get_resume(request)
     education_id = json.loads(request.body)['id']
     try:
-        education = resume.work_set.get(education_id=education_id)
+        education = Education.objects.get(education_id=education_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': '教育经历不存在!'}))
     return education
@@ -221,7 +220,7 @@ def get_my_education(request):
         resume = get_resume(request)
     except Exception as e:
         return e
-    education_set = resume.education_set
+    education_set = resume.education_set.all()
     res = -1
     for education in education_set:
         res = max(res, education.education_record)
@@ -390,10 +389,11 @@ def get_my_work_list(request):
         resume = get_resume(request)
     except Exception as e:
         return e
-    work_set = resume.work_set
+    work_set = resume.work_set.all()
     res = []
     for work in work_set:
         res.append(work.id)
+    return JsonResponse({'status_code': 0, 'my_work_list': res})
 
 
 @csrf_exempt
@@ -607,7 +607,7 @@ def get_my_item_list(request):
         resume = get_resume(request)
     except Exception as e:
         return e
-    item_set = resume.item_set
+    item_set = resume.item_set.all()
     res = []
     for item in item_set:
         res.append(item.item_id)
@@ -773,6 +773,7 @@ def get_item_achievement(request):
 
 @csrf_exempt
 def add_my_education_list(request):
+    print("11111\n")
     try:
         resume = get_resume(request)
     except Exception as e:
@@ -802,7 +803,7 @@ def get_my_education_list(request):
         resume = get_resume(request)
     except Exception as e:
         return e
-    education_set = resume.education_set
+    education_set = resume.education_set.all()
     res = []
     for education in education_set:
         res.append(education.education_id)

@@ -5,7 +5,7 @@ import hashlib
 HEADER = {'typ': 'JWP', 'alg': 'default'}
 KEY = "Oshwiciqwq"
 SALT = "BUAA_DataBase"
-TIME_OUT = 30 * 60  # 30min
+TIME_OUT = 60 * 60 * 24
 
 
 def encrypt(obj):
