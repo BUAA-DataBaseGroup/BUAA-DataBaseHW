@@ -29,20 +29,18 @@ def get_resume(request):
 
 
 def get_work(request):
-    resume = get_resume(request)
     work_id = json.loads(request.body)['id']
     try:
-        work = resume.work_set.get(work_id=work_id)
+        work = Work.objects.get(work_id=work_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': '工作不存在!'}))
     return work
 
 
 def get_item(request):
-    resume = get_resume(request)
     item_id = json.loads(request.body)['id']
     try:
-        item = resume.work_set.get(item_id=item_id)
+        item = Item.objects.get(item_id=item_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': '项目不存在!'}))
     return item

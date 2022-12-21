@@ -33,4 +33,5 @@ urlpatterns = [
     path('del_job', del_job),
     path('upd_job', upd_job),
     path('get_job', get_job),
+    path('search_job', search_job),
 ]

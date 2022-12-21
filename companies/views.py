@@ -29,30 +29,27 @@ def get_company(request):
 
 
 def get_job_id(request):
-    company = get_company(request)
     job_id = json.loads(request.body)['id']
     try:
-        job = company.job_set.get(job_id=job_id)
+        job = Job.objects.get(job_id=job_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': '工作不存在!'}))
     return job
 
 
 def get_development_id(request):
-    company = get_company(request)
     development_id = json.loads(request.body)['id']
     try:
-        development = company.development_set.get(development_id=development_id)
+        development = Development.objects.get(development_id=development_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': 'development不存在!'}))
     return development
 
 
 def get_welfare_id(request):
-    company = get_company(request)
     welfare_id = json.loads(request.body)['id']
     try:
-        welfare = company.welfare_set.get(welfare_id=welfare_id)
+        welfare = Welfare.objects.get(welfare_id=welfare_id)
     except:
         raise Exception(JsonResponse({'status_code': 2, 'message': 'welfare不存在!'}))
     return welfare
@@ -468,6 +465,7 @@ def get_job(request):
     except Exception as e:
         return e
     return JsonResponse({'status_code': 0,
+                         'corporation_email': job.company.email,
                          'recruiter_id': job.recruiter_id,
                          'position_name': job.position_name,
                          'position_address': job.position_address,
@@ -477,4 +475,23 @@ def get_job(request):
                          'position_salary_to': job.position_salary_to,
                          'position_boss_id': job.position_boss_id,
                          'position_description': job.position_description,
+                         })
+
+
+@csrf_exempt
+def search_job(request):
+    position_address = json.loads(request.body)['position_address']
+    position_experience = json.loads(request.body)['position_experience']
+    position_education = json.loads(request.body)['position_education']
+    position_salary_from = json.loads(request.body)['position_salary_from']
+    position_salary_to = json.loads(request.body)['position_salary_to']
+
+    job_list = Job.objects.filter(position_address=position_address,
+                                  position_experience=position_experience,
+                                  position_education=position_education,
+                                  position_salary_to__gte=position_salary_from,
+                                  position_salary_from__lte=position_salary_to,
+                                  )
+    return JsonResponse({'status_code': 0,
+                         'job_list': job_list
                          })
