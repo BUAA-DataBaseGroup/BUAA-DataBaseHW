@@ -77,38 +77,41 @@ def login(request):
 
 
 @csrf_exempt
-def username(request):
+def upd_username(request):
     try:
         user = get_user(request)
     except Exception as e:
         return e
-    if request.method == 'POST':
-        new_val = json.loads(request.body)['username']
-        user.username = new_val
-        user.save()
-        return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-    elif request.method == 'GET':
-        return JsonResponse({'status_code': 0, 'username': user.username})
-    return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
+    new_val = json.loads(request.body)['username']
+    user.username = new_val
+    user.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
 
 
 @csrf_exempt
-def password(request):
-    if request.method == 'POST':
-        try:
-            user = get_user(request)
-        except Exception as e:
-            return e
-        old = json.loads(request.body)['password_old']
-        new1 = json.loads(request.body)['password_new1']
-        new2 = json.loads(request.body)['password_new2']
+def get_username(request):
+    try:
+        user = get_user(request)
+    except Exception as e:
+        return e
+    return JsonResponse({'status_code': 0, 'username': user.username})
 
-        if user.password != hash_code(old):
-            return JsonResponse({'status_code': 2, 'message': '密码错误!'})
 
-        if new1 != new2:
-            return JsonResponse({'status_code': 3, 'message': '两次输入密码不一致!'})
-        user.password = hash_code(new1)
-        user.save()
-        return JsonResponse({'status_code': 0, 'message': '修改成功!'})
-    return JsonResponse({'status_code': -1, 'message': '请求方式错误!'})
+@csrf_exempt
+def upd_password(request):
+    try:
+        user = get_user(request)
+    except Exception as e:
+        return e
+    old = json.loads(request.body)['password_old']
+    new1 = json.loads(request.body)['password_new1']
+    new2 = json.loads(request.body)['password_new2']
+
+    if user.password != hash_code(old):
+        return JsonResponse({'status_code': 2, 'message': '密码错误!'})
+
+    if new1 != new2:
+        return JsonResponse({'status_code': 3, 'message': '两次输入密码不一致!'})
+    user.password = hash_code(new1)
+    user.save()
+    return JsonResponse({'status_code': 0, 'message': '修改成功!'})
