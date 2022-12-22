@@ -29,7 +29,7 @@ class Company(models.Model):
 
     corporation_am_time = models.CharField(max_length=128)
     corporation_pm_time = models.CharField(max_length=128)
-    corporation_off = models.CharField(max_length=128)
+    corporation_offwork = models.CharField(max_length=128)
 
     # corporation_welfare_list: ["五险一金", "加班补助", "年终奖"],
 

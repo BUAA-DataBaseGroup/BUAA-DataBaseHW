@@ -238,7 +238,7 @@ def upd_corporation_am_time(request):
         return e
     company.corporation_am_time = json.loads(request.body)['corporation_am_time']
     company.corporation_pm_time = json.loads(request.body)['corporation_pm_time']
-    company.corporation_off = json.loads(request.body)['corporation_off']
+    company.corporation_offwork = json.loads(request.body)['corporation_offwork']
     company.save()
     return JsonResponse({'status_code': 0, 'message': '修改成功!'})
 
@@ -252,7 +252,7 @@ def get_corporation_am_time(request):
     return JsonResponse({'status_code': 0,
                          'corporation_am_time': company.corporation_am_time,
                          'corporation_pm_time': company.corporation_pm_time,
-                         'corporation_off': company.corporation_off,
+                         'corporation_offwork': company.corporation_offwork,
                          })
 
 
@@ -442,7 +442,7 @@ def upd_job(request):
     recruiter_id = json.loads(request.body)['recruiter_id']
     job.recruiter = Recruiter.objects.get(recruiter_id=recruiter_id)
     job.position_name = json.loads(request.body)['position_name']
-    job.position_address = json.loads(request.body)['position_address']
+    job.position_address = (json.loads(request.body)['position_address'])[2]
     job.position_experience = json.loads(request.body)['position_experience']
     job.position_education = json.loads(request.body)['position_education']
     job.position_salary_from = json.loads(request.body)['position_salary_from']
@@ -459,11 +459,13 @@ def get_job(request):
         job = get_job_id(request)
     except Exception as e:
         return e
+    tmp = job.position_address
+    res = [tmp[0:2] + '0000', tmp[0:4] + '00', tmp]
     return JsonResponse({'status_code': 0,
                          'corporation_email': job.company.email,
                          'recruiter_id': job.recruiter_id,
                          'position_name': job.position_name,
-                         'position_address': job.position_address,
+                         'position_address': res,
                          'position_experience': job.position_experience,
                          'position_education': job.position_education,
                          'position_salary_from': job.position_salary_from,
