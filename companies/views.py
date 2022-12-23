@@ -430,7 +430,7 @@ def get_corporation_job_list(request):
 def add_job(request):
     try:
         company = get_company(request)
-        recruiter = get_recruiter(request)
+        recruiter = get_recruiter_id(request)
     except Exception as e:
         return e
     job = Job()
