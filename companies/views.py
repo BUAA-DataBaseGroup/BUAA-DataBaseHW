@@ -504,17 +504,18 @@ def search_job(request):
     position_address = json.loads(request.body)['position_address']
     position_experience = json.loads(request.body)['position_experience']
     position_education = json.loads(request.body)['position_education']
-    position_salary_from = json.loads(request.body)['position_salary_from']
-    position_salary_to = json.loads(request.body)['position_salary_to']
+    position_salary = json.loads(request.body)['position_salary_from']
 
+    left = [0, 3, 5, 10, 20, 50]
+    right = [3, 5, 10, 20, 50, 100000000]
     job_list = Job.objects.all()
     res = []
     for job in job_list:
         if (position_address == -1 or position_address == job.position_address) and \
                 (position_experience == -1 or position_experience == job.position_experience) and \
                 (position_education == -1 or position_education == job.position_education) and \
-                (position_salary_from == -1 or position_salary_from <= job.position_salary_to) and \
-                (position_salary_to == -1 or position_salary_to >= job.position_salary_from):
+                (position_salary == -1 or (left[position_salary] <= job.position_salary_to and right[
+                    position_salary] >= job.position_salary_from)):
             tmp = {'corporation_email': job.company.email,
                    'recruiter_id': job.recruiter_id,
                    'position_name': job.position_name,
