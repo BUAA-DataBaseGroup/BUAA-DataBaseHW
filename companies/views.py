@@ -441,7 +441,7 @@ def add_job(request):
     job.company = company
     job.recruiter = recruiter
     job.position_name = json.loads(request.body)['position_name']
-    job.position_address = json.loads(request.body)['position_address']
+    job.position_address = (json.loads(request.body)['position_address'])[2]
     job.position_experience = json.loads(request.body)['position_experience']
     job.position_education = json.loads(request.body)['position_education']
     job.position_salary_from = json.loads(request.body)['position_salary_from']
