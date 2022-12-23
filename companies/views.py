@@ -158,7 +158,7 @@ def get_corporation_talent_development_list(request):
     development_set = company.development_set.all()
     res = []
     for development in development_set:
-        res.append(development.id)
+        res.append(development.development_id)
     return JsonResponse({'status_code': 0, 'corporation_talent_development_list': res})
 
 
@@ -278,7 +278,7 @@ def get_welfare_list(request):
     welfare_set = company.welfare_set.all()
     res = []
     for welfare in welfare_set:
-        res.append(welfare.id)
+        res.append(welfare.welfare_id)
     return JsonResponse({'status_code': 0, 'corporation_welfare_list': res})
 
 
@@ -493,7 +493,7 @@ def search_job(request):
                 position_education == job.position_education and \
                 position_salary_from <= job.position_salary_to and \
                 position_salary_to >= job.position_salary_from:
-            res.append(job)
+            res.append(job.job_id)
 
     return JsonResponse({'status_code': 0,
                          'job_list': res
