@@ -516,7 +516,8 @@ def search_job(request):
                 (position_education == -1 or position_education == job.position_education) and \
                 (position_salary == -1 or (left[position_salary] <= job.position_salary_to and right[
                     position_salary] >= job.position_salary_from)):
-            tmp = {'corporation_email': job.company.email,
+            tmp = {'job_id': job.job_id,
+                   'corporation_email': job.company.email,
                    'recruiter_id': job.recruiter_id,
                    'position_name': job.position_name,
                    'position_address': convert(job.position_address),
@@ -540,7 +541,8 @@ def search_job_by_name(request):
     res = []
     for job in job_list:
         if position_name in job.position_name:
-            tmp = {'corporation_email': job.company.email,
+            tmp = {'job_id': job.job_id,
+                   'corporation_email': job.company.email,
                    'recruiter_id': job.recruiter_id,
                    'position_name': job.position_name,
                    'position_address': convert(job.position_address),
