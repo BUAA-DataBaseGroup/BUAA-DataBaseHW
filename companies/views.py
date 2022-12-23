@@ -9,6 +9,10 @@ from companies.models import *
 
 # Create your views here.
 
+def convert(s):
+    return [s[0:2] + '0000', s[0:4] + '00', s]
+
+
 def get_user(request):
     email = json.loads(request.body)['email']
     try:
@@ -393,7 +397,7 @@ def get_recruiter_job_list(request):
                'corporation_email': job.company.email,
                'recruiter_id': job.recruiter_id,
                'position_name': job.position_name,
-               'position_address': res,
+               'position_address': convert(job.position_address),
                'position_experience': job.position_experience,
                'position_education': job.position_education,
                'position_salary_from': job.position_salary_from,
@@ -416,7 +420,7 @@ def get_corporation_job_list(request):
                'corporation_email': job.company.email,
                'recruiter_id': job.recruiter_id,
                'position_name': job.position_name,
-               'position_address': res,
+               'position_address': convert(job.position_address),
                'position_experience': job.position_experience,
                'position_education': job.position_education,
                'position_salary_from': job.position_salary_from,
@@ -482,13 +486,11 @@ def get_job(request):
         job = get_job_id(request)
     except Exception as e:
         return e
-    tmp = job.position_address
-    res = [tmp[0:2] + '0000', tmp[0:4] + '00', tmp]
     return JsonResponse({'status_code': 0,
                          'corporation_email': job.company.email,
                          'recruiter_id': job.recruiter_id,
                          'position_name': job.position_name,
-                         'position_address': res,
+                         'position_address': convert(job.position_address),
                          'position_experience': job.position_experience,
                          'position_education': job.position_education,
                          'position_salary_from': job.position_salary_from,
