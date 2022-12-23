@@ -338,7 +338,7 @@ def get_recruiter_list(request):
     recruiter_set = company.recruiter_set.all()
     res = []
     for recruiter in recruiter_set:
-        res.append(recruiter.id)
+        res.append(recruiter.recruiter_id)
     return JsonResponse({'status_code': 0, 'corporation_recruiter_list': res})
 
 
