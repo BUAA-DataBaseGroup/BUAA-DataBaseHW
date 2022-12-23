@@ -477,18 +477,24 @@ def get_job(request):
 
 @csrf_exempt
 def search_job(request):
+    position_name = json.loads(request.body)['position_name']
     position_address = json.loads(request.body)['position_address']
     position_experience = json.loads(request.body)['position_experience']
     position_education = json.loads(request.body)['position_education']
     position_salary_from = json.loads(request.body)['position_salary_from']
     position_salary_to = json.loads(request.body)['position_salary_to']
 
-    job_list = Job.objects.filter(position_address=position_address,
-                                  position_experience=position_experience,
-                                  position_education=position_education,
-                                  position_salary_to__gte=position_salary_from,
-                                  position_salary_from__lte=position_salary_to,
-                                  )
+    job_list = Job.objects.all()
+    res = []
+    for job in job_list:
+        if position_name in job.position_name and \
+                position_address == job.position_address and \
+                position_experience == job.position_experience and \
+                position_education == job.position_education and \
+                position_salary_from <= job.position_salary_to and \
+                position_salary_to >= job.position_salary_from:
+            res.append(job)
+
     return JsonResponse({'status_code': 0,
-                         'job_list': job_list
+                         'job_list': res
                          })

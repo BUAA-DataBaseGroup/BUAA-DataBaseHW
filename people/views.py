@@ -392,7 +392,7 @@ def get_my_work_list(request):
     work_set = resume.work_set.all()
     res = []
     for work in work_set:
-        res.append(work.id)
+        res.append(work.work_id)
     return JsonResponse({'status_code': 0, 'my_work_list': res})
 
 
