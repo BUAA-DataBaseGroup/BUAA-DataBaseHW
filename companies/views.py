@@ -158,7 +158,8 @@ def get_corporation_talent_development_list(request):
     development_set = company.development_set.all()
     res = []
     for development in development_set:
-        res.append(development.development_id)
+        tmp = {'id': development.development_id, 'content': development.content}
+        res.append(tmp)
     return JsonResponse({'status_code': 0, 'corporation_talent_development_list': res})
 
 
@@ -278,7 +279,8 @@ def get_welfare_list(request):
     welfare_set = company.welfare_set.all()
     res = []
     for welfare in welfare_set:
-        res.append(welfare.welfare_id)
+        tmp = {'id': welfare.welfare_id, 'content': welfare.content}
+        res.append(tmp)
     return JsonResponse({'status_code': 0, 'corporation_welfare_list': res})
 
 
@@ -338,7 +340,9 @@ def get_recruiter_list(request):
     recruiter_set = company.recruiter_set.all()
     res = []
     for recruiter in recruiter_set:
-        res.append(recruiter.recruiter_id)
+        tmp = {'id': recruiter.recruiter_id, 'recruiter_name': recruiter.recruiter_name,
+               'recruiter_post': recruiter.recruiter_post}
+        res.append(tmp)
     return JsonResponse({'status_code': 0, 'corporation_recruiter_list': res})
 
 
@@ -385,7 +389,17 @@ def get_recruiter_job_list(request):
     job_set = recruiter.job_set.all()
     res = []
     for job in job_set:
-        res.append(job.id)
+        tmp = {'corporation_email': job.company.email,
+               'recruiter_id': job.recruiter_id,
+               'position_name': job.position_name,
+               'position_address': res,
+               'position_experience': job.position_experience,
+               'position_education': job.position_education,
+               'position_salary_from': job.position_salary_from,
+               'position_salary_to': job.position_salary_to,
+               'position_boss_id': job.position_boss_id,
+               'position_description': job.position_description}
+        res.append(tmp)
     return JsonResponse({'status_code': 0, 'recruiter_job_list': res})
 
 
@@ -398,7 +412,17 @@ def get_corporation_job_list(request):
     job_set = company.job_set.all()
     res = []
     for job in job_set:
-        res.append(job.id)
+        tmp = {'corporation_email': job.company.email,
+               'recruiter_id': job.recruiter_id,
+               'position_name': job.position_name,
+               'position_address': res,
+               'position_experience': job.position_experience,
+               'position_education': job.position_education,
+               'position_salary_from': job.position_salary_from,
+               'position_salary_to': job.position_salary_to,
+               'position_boss_id': job.position_boss_id,
+               'position_description': job.position_description}
+        res.append(tmp)
     return JsonResponse({'status_code': 0, 'corporation_job_list': res})
 
 
