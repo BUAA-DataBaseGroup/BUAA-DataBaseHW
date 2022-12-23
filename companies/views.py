@@ -389,7 +389,8 @@ def get_recruiter_job_list(request):
     job_set = recruiter.job_set.all()
     res = []
     for job in job_set:
-        tmp = {'corporation_email': job.company.email,
+        tmp = {'job_id': job.job_id,
+               'corporation_email': job.company.email,
                'recruiter_id': job.recruiter_id,
                'position_name': job.position_name,
                'position_address': res,
@@ -397,7 +398,6 @@ def get_recruiter_job_list(request):
                'position_education': job.position_education,
                'position_salary_from': job.position_salary_from,
                'position_salary_to': job.position_salary_to,
-               'position_boss_id': job.position_boss_id,
                'position_description': job.position_description}
         res.append(tmp)
     return JsonResponse({'status_code': 0, 'recruiter_job_list': res})
@@ -412,7 +412,8 @@ def get_corporation_job_list(request):
     job_set = company.job_set.all()
     res = []
     for job in job_set:
-        tmp = {'corporation_email': job.company.email,
+        tmp = {'job_id': job.job_id,
+               'corporation_email': job.company.email,
                'recruiter_id': job.recruiter_id,
                'position_name': job.position_name,
                'position_address': res,
@@ -420,7 +421,6 @@ def get_corporation_job_list(request):
                'position_education': job.position_education,
                'position_salary_from': job.position_salary_from,
                'position_salary_to': job.position_salary_to,
-               'position_boss_id': job.position_boss_id,
                'position_description': job.position_description}
         res.append(tmp)
     return JsonResponse({'status_code': 0, 'corporation_job_list': res})
@@ -471,7 +471,6 @@ def upd_job(request):
     job.position_education = json.loads(request.body)['position_education']
     job.position_salary_from = json.loads(request.body)['position_salary_from']
     job.position_salary_to = json.loads(request.body)['position_salary_to']
-    job.position_boss_id = json.loads(request.body)['position_boss_id']
     job.position_description = json.loads(request.body)['position_description']
     job.save()
     return JsonResponse({'status_code': 0, 'message': '修改成功!'})
@@ -494,7 +493,6 @@ def get_job(request):
                          'position_education': job.position_education,
                          'position_salary_from': job.position_salary_from,
                          'position_salary_to': job.position_salary_to,
-                         'position_boss_id': job.position_boss_id,
                          'position_description': job.position_description,
                          })
 
@@ -524,7 +522,6 @@ def search_job(request):
                    'position_education': job.position_education,
                    'position_salary_from': job.position_salary_from,
                    'position_salary_to': job.position_salary_to,
-                   'position_boss_id': job.position_boss_id,
                    'position_description': job.position_description}
             res.append(tmp)
 
@@ -549,7 +546,6 @@ def search_job_by_name(request):
                    'position_education': job.position_education,
                    'position_salary_from': job.position_salary_from,
                    'position_salary_to': job.position_salary_to,
-                   'position_boss_id': job.position_boss_id,
                    'position_description': job.position_description}
             res.append(tmp)
 
