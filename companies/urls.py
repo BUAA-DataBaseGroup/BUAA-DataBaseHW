@@ -34,4 +34,5 @@ urlpatterns = [
     path('upd_job', upd_job),
     path('get_job', get_job),
     path('search_job', search_job),
+    path('search_job_by_name', search_job_by_name),
 ]

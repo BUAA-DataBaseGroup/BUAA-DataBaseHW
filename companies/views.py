@@ -501,7 +501,6 @@ def get_job(request):
 
 @csrf_exempt
 def search_job(request):
-    position_name = json.loads(request.body)['position_name']
     position_address = json.loads(request.body)['position_address']
     position_experience = json.loads(request.body)['position_experience']
     position_education = json.loads(request.body)['position_education']
@@ -511,13 +510,47 @@ def search_job(request):
     job_list = Job.objects.all()
     res = []
     for job in job_list:
-        if position_name in job.position_name and \
-                position_address == job.position_address and \
-                position_experience == job.position_experience and \
-                position_education == job.position_education and \
-                position_salary_from <= job.position_salary_to and \
-                position_salary_to >= job.position_salary_from:
-            res.append(job.job_id)
+        if (position_address == -1 or position_address == job.position_address) and \
+                (position_experience == -1 or position_experience == job.position_experience) and \
+                (position_education == -1 or position_education == job.position_education) and \
+                (position_salary_from == -1 or position_salary_from <= job.position_salary_to) and \
+                (position_salary_to == -1 or position_salary_to >= job.position_salary_from):
+            tmp = {'corporation_email': job.company.email,
+                   'recruiter_id': job.recruiter_id,
+                   'position_name': job.position_name,
+                   'position_address': res,
+                   'position_experience': job.position_experience,
+                   'position_education': job.position_education,
+                   'position_salary_from': job.position_salary_from,
+                   'position_salary_to': job.position_salary_to,
+                   'position_boss_id': job.position_boss_id,
+                   'position_description': job.position_description}
+            res.append(tmp)
+
+    return JsonResponse({'status_code': 0,
+                         'job_list': res
+                         })
+
+
+@csrf_exempt
+def search_job_by_name(request):
+    position_name = json.loads(request.body)['position_name']
+
+    job_list = Job.objects.all()
+    res = []
+    for job in job_list:
+        if position_name in job.position_name:
+            tmp = {'corporation_email': job.company.email,
+                   'recruiter_id': job.recruiter_id,
+                   'position_name': job.position_name,
+                   'position_address': res,
+                   'position_experience': job.position_experience,
+                   'position_education': job.position_education,
+                   'position_salary_from': job.position_salary_from,
+                   'position_salary_to': job.position_salary_to,
+                   'position_boss_id': job.position_boss_id,
+                   'position_description': job.position_description}
+            res.append(tmp)
 
     return JsonResponse({'status_code': 0,
                          'job_list': res
