@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "16365767",
+      "name": "休息",
+      "font_class": "xiuxi",
+      "unicode": "e6f2",
+      "unicode_decimal": 59122
+    }
+  ]
+}
